@@ -13,5 +13,9 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     for count in range(n):
         delay = await wait_random(max_delay)
         result_list.append(delay)
-    sorted_list = sorted(result_list)
-    return sorted_list
+    for i in range(len(result_list)):
+        for j in range(len(result_list) - i - 1):
+            if result_list[j] > result_list[j + 1]:
+                result_list[j], result_list[j + 1] =\
+                        result_list[j + 1], result_list[j]
+    return result_list
