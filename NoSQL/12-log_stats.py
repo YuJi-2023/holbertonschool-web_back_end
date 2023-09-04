@@ -10,7 +10,7 @@ def nginx_logs(mongo_collection):
 
     print(f"Methods:")
     method = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-    tab = '    '
+    tab = '\t'
     for m in method:
         total_m = mongo_collection.count_documents({"method": m})
         print(f"{tab}method {m}: {total_m}")
