@@ -60,15 +60,15 @@ class Server:
         else:
             p_p = page - 1
 
-        if return_list == []:
-            n_p = None
-        else:
-            n_p = page + 1
-
         if len(data_list) % page_size != 0:
             t_p = int(len(data_list) / page_size) + 1
         else:
             t_p = int(len(data_list) / page_size)
+
+        if page >= t_p:
+            n_p = None
+        else:
+            n_p = page + 1
 
         info_dict = {
                 "page_size": page_size,
