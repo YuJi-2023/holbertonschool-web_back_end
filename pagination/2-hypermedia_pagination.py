@@ -62,7 +62,7 @@ class Server:
             t_p = int(len(data_list) / page_size)
 
         n_p = page + 1
-        if n_p > t_p:
+        if page >= t_p:
             n_p = None
         p_p = page - 1
         if p_p < 1:
