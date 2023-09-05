@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-"""simple pagination"""
+"""simple pagination project """
 import csv
 import math
 from typing import List, Dict
 
 
 def index_range(page, page_size):
-    """return a tuple containing a start index and an end index"""
-    start = int(page_size * (page - 1))
-    end = int(page * page_size)
-    result = (start, end)
-    return result
+    """returns a tuple containing the start and end index of a page """
+    start_index = int(page_size * (page - 1))
+    end_index = int(page * page_size)
+    return (start_index, end_index)
 
 
 class Server:
@@ -33,40 +32,35 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """return the list according to matched page"""
+        """gets the page number and page size, returns the data from dataset
+        of the specified page number """
         assert type(page) == int
         assert type(page_size) == int
         assert page > 0
         assert page_size > 0
-
-        page_range = index_range(page, page_size)
-        start_idx = page_range[0]
-        end_idx = page_range[1]
-
-        data_list = self.dataset()
-        return_list = data_list[start_idx: end_idx]
-        return return_list
+        index = index_range(page, page_size)
+        index_start, index_end = index
+        dataset = self.dataset()
+        return dataset[index_start: index_end]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
-        """return a dictionary containing infos in key-value pairs"""
-        data_list = self.dataset()
-        return_list = self.get_page(page, page_size)
-
-        t_p = math.ceil(len(data_list) / page_size)
-
-        n_p = page + 1
-        if n_p > t_p:
-            n_p = None
-        p_p = page - 1
-        if p_p < 1:
-            p_p = None
-
-        info_dict = {
-                "page_size": page_size,
-                "page": page,
-                "data": return_list,
-                "next_page": n_p,
-                "prev_page": p_p,
-                "tatal_pages": t_p
-                }
-        return info_dict
+        """returns a dictionary containing information on a page of data
+        from dataset """
+        dataset = self.dataset()
+        data = self.get_page(page, page_size)
+        total_pages = math.ceil(len(dataset) / page_size)
+        next_page = page + 1
+        if next_page > total_pages:
+            next_page = None
+        prev_page = page - 1
+        if prev_page < 1:
+            prev_page = None
+        dict = {
+            "page_size": page_size,
+            "page": page,
+            "data": data,
+            "next_page": next_page,
+            "prev_page": prev_page,
+            "total_pages": total_pages
+        }
+        return dict
