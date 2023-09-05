@@ -40,8 +40,7 @@ class Server:
         assert page_size > 0
 
         page_range = index_range(page, page_size)
-        start_idx = page_range[0]
-        end_idx = page_range[1]
+        start_idx, end_idx = page_range
 
         data_list = self.dataset()
         return_list = data_list[start_idx: end_idx]
@@ -62,11 +61,11 @@ class Server:
             p_p = None
 
         info_dict = {
-                "page_size": page_size,
-                "page": page,
-                "data": return_list,
-                "next_page": n_p,
-                "prev_page": p_p,
-                "tatal_pages": t_p
+            "page_size": page_size,
+            "page": page,
+            "data": return_list,
+            "next_page": n_p,
+            "prev_page": p_p,
+            "tatal_pages": t_p
         }
         return info_dict
