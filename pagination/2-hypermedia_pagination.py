@@ -2,7 +2,7 @@
 """simple pagination"""
 import csv
 import math
-from typing import List, Dict, Union, Any
+from typing import List, Dict
 
 
 def index_range(page, page_size):
@@ -42,19 +42,12 @@ class Server:
         page_range = index_range(page, page_size)
         start_idx = page_range[0]
         end_idx = page_range[1]
-        return_list = []
-        data_list = self.dataset()
-        i = start_idx
 
-        if page * page_size > len(data_list):
-            return return_list
-        else:
-            for i in range(start_idx, end_idx):
-                return_list.append(data_list[i])
+        data_list = self.dataset()
+        return_list = data_list[start_idx: end_idx]
         return return_list
 
-    def get_hyper(self, page: int = 1, page_size: int = 10)\
-            -> Dict[str, Union[int, List[Any], None]]:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
         """return a dictionary containing infos in key-value pairs"""
         data_list = self.dataset()
         return_list = self.get_page(page, page_size)
