@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-"""simple pagination"""
+"""simple pagination project """
 import csv
 import math
 from typing import List
 
 
 def index_range(page, page_size):
-    """return a tuple containing a start index and an end index"""
-    start = int(page_size * (page - 1))
-    end = int(page * page_size)
-    result = (start, end)
-    return result
+    """returns a tuple containing the start and end index of a page """
+    start_index = int(page_size * (page - 1))
+    end_index = int(page * page_size)
+    return (start_index, end_index)
 
 
 class Server:
@@ -33,21 +32,13 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """return the list according to matched page"""
+        """gets the page number and page size, returns the data from dataset
+        of the specified page number """
         assert type(page) == int
         assert type(page_size) == int
         assert page > 0
         assert page_size > 0
-        page_range = index_range(page, page_size)
-        start_idx = page_range[0]
-        end_idx = page_range[1]
-        return_list = []
-        data_list = self.dataset()
-        i = start_idx
-
-        if page * page_size > len(data_list):
-            return return_list
-        else:
-            for i in range(start_idx, end_idx):
-                return_list.append(data_list[i])
-        return return_list
+        index = index_range(page, page_size)
+        index_start, index_end = index
+        dataset = self.dataset()
+        return dataset[index_start: index_end]
