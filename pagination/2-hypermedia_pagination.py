@@ -34,7 +34,10 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """return the list according to matched page"""
-        assert all(isinstance(x, int) and x > 0 for x in (page, page_size))
+        assert type(page) == int
+        assert type(page_size) == int
+        assert page > 0
+        assert page_size > 0
 
         page_range = index_range(page, page_size)
         start_idx = page_range[0]
