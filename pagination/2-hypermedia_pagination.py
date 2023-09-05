@@ -52,10 +52,7 @@ class Server:
         data_list = self.dataset()
         return_list = self.get_page(page, page_size)
 
-        if len(data_list) % page_size != 0:
-            t_p = int(len(data_list) / page_size) + 1
-        else:
-            t_p = int(len(data_list) / page_size)
+        t_p = math.ceil(len(data_list) / page_size)
 
         n_p = page + 1
         if n_p > t_p:
