@@ -55,20 +55,18 @@ class Server:
         """return a dictionary containing infos in key-value pairs"""
         data_list = self.dataset()
         return_list = self.get_page(page, page_size)
-        if page == 1:
-            p_p = None
-        else:
-            p_p = page - 1
 
         if len(data_list) % page_size != 0:
             t_p = int(len(data_list) / page_size) + 1
         else:
             t_p = int(len(data_list) / page_size)
 
-        if page >= t_p:
+        n_p = page + 1
+        if n_p > t_p:
             n_p = None
-        else:
-            n_p = page + 1
+        p_p = page - 1
+        if p_p < 1:
+            p_p = None
 
         info_dict = {
                 "page_size": page_size,
