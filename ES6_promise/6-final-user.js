@@ -6,7 +6,7 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
   const promise2 = uploadPhoto(fileName);
 
   return Promise.allSettled([promise1, promise2]).then((results) => results.map((result) => ({
-    status: result.status,
-    value: result.status === 'fulfilled' ? result.value : result.reason,
-  })));
+    status: 'fulfilled',
+    value: result,
+  }))).catch((e) => ({ status: 'rejected', value: `Error: ${e.message}` }));
 }
