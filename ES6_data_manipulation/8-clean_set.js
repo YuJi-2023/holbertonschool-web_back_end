@@ -1,6 +1,6 @@
 export default function cleanSet(setPara, startString) {
   const resultArr = [];
-  if (startString !== '' || (startString instanceof String) || startString !== null) {
+  if (startString !== '' || (typeof startString === 'string') || startString !== null) {
     for (const elem of setPara) {
       if (elem !== undefined && elem.startsWith(startString)) {
         const newElem = elem.replace(startString, '');
